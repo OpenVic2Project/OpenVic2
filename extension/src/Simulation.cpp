@@ -18,12 +18,7 @@ OpenVic2::Date::Date(int day, int month, int year){
 	else {
 		this->month = 1;
 	}
-	if (year >= 1836 && year <= 1936) {
-		this->year = year;
-	}
-	else {
-		this->year = 1836;
-	}
+	this->year = year;
 }
 
 void OpenVic2::Date::incrimentDate(){
