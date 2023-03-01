@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bgnupcshe1m7r"]
+[gd_scene load_steps=4 format=3 uid="uid://bgnupcshe1m7r"]
 
 [ext_resource type="Script" path="res://src/SampleGame.gd" id="1_eklvp"]
 [ext_resource type="PackedScene" uid="uid://b4pg2y2ivib8f" path="res://src/GameMenu.tscn" id="2_r7wq5"]
+[ext_resource type="PackedScene" uid="uid://cnbfxjy1m6wja" path="res://src/OptionMenu/OptionsMenu.tscn" id="3_h35wo"]
 
 [node name="SampleGame" type="Control" node_paths=PackedStringArray("_province_num_display", "_province_size_display")]
 layout_mode = 3
@@ -65,7 +66,24 @@ text = "View Previous Province"
 layout_mode = 2
 text = "Exit to Main Menu"
 
+[node name="Options" type="Button" parent="CenterContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Options
+"
+
+[node name="OptionsPopup" type="PopupPanel" parent="."]
+initial_position = 2
+size = Vector2i(600, 300)
+
+[node name="OptionsMenu" parent="OptionsPopup" instance=ExtResource("3_h35wo")]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 596.0
+offset_bottom = 296.0
+
 [connection signal="pressed" from="CenterContainer/VBoxContainer2/VBoxContainer/PassTimeButton" to="." method="_on_pass_time_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer2/VBoxContainer/NextProvButton" to="." method="_on_next_prov_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer2/VBoxContainer/PrevProvButton" to="." method="_on_prev_prov_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer2/VBoxContainer/ToMainMenu" to="." method="_on_to_main_menu_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer2/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="popup_hide" from="OptionsPopup" to="." method="_on_popup_panel_close"]

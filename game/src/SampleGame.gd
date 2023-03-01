@@ -13,6 +13,8 @@ var _main_menu_scene : PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$OptionsPopup/OptionsMenu.connect("back_button_pressed",_on_popup_panel_close)
+	Events.Options.load_settings_from_file()
 	updateVisibleInfo()
 	pass # Replace with function body.
 
@@ -47,3 +49,16 @@ func _on_prev_prov_button_pressed():
 
 func _on_to_main_menu_pressed():
 	get_tree().change_scene_to_packed(_main_menu_scene)
+
+# SS-46 
+#The user shall be able to access the Settings Menu from the Game Session Menu
+#Handeling popup for options
+
+#Load settings and show popup
+func _on_options_pressed():
+	$OptionsPopup.popup_centered()
+	$OptionsPopup.show()
+	
+#Hide popup
+func _on_popup_panel_close():
+	$OptionsPopup.hide()
