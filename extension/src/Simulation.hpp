@@ -49,4 +49,21 @@ namespace OpenVic2 {
 	};
 
 	Simulation* Simulation::_simulation = nullptr;
+
+	struct Date {
+	private:
+		uint64_t year;
+		uint64_t month;
+		uint64_t day;
+
+	public:
+		Date();
+		~Date();
+		Date(int day, int month, int year);
+
+		void incrimentDate();
+		void setDate(int day, int month, int year);
+		Date getDate();
+
+	};
 }
