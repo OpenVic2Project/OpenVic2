@@ -22,19 +22,23 @@ namespace OpenVic2 {
 			~Date();
 			Date(uint64_t day, uint64_t month, uint64_t year);
 
-			void incrimentDate();
+			void incrementDate();
 			void setDate(uint64_t day, uint64_t month, uint64_t year);
 			Date getDate();
 
 		};
 
+		enum class Speed { Speed1 = 4000, Speed2 = 3000, Speed3 = 2000, Speed4 = 1000, Speed5 = 100, Speed6 = 1 };
+
 		//BEGIN BOILERPLATE
 		static Simulation* _simulation;
 
 		private:
-		std::chrono::time_point<std::chrono::high_resolution_clock> currentTime;
+		std::chrono::time_point<std::chrono::high_resolution_clock> lastPolledTime;
 		bool isPaused;
 		Date inGameDate;
+		Speed currentSpeed;
+
 
 		protected:
 		static void _bind_methods() {
@@ -45,15 +49,22 @@ namespace OpenVic2 {
 		public:
 		inline static Simulation* get_singleton() { return _simulation; }
 		int getCurrentTime();
-		void setCurrentTime(int time);
-		void pauseGame();
+		void setCurrentTime(std::chrono::time_point<std::chrono::high_resolution_clock> time);
+		void togglePauseState();
+		void getPauseState();
+		void increaseSimulationSpeed();
+		void decreaseSimulationSpeed();
+		void setSimulationSpeed(int speed);
+		int getSimulationSpeed();
+
 
 		inline Simulation() {
 			ERR_FAIL_COND(_simulation != nullptr);
 			_simulation = this;
-			this->currentTime = std::chrono::high_resolution_clock::now();
+			this->lastPolledTime = std::chrono::high_resolution_clock::now();
 			this->isPaused = false;
 			this->inGameDate = Date(1,1,1836);
+			this->currentSpeed = Speed::Speed1;
 			exampleProvinces.resize(10, 1);
 		}
 		inline ~Simulation() {
@@ -75,7 +86,7 @@ namespace OpenVic2 {
 			return exampleProvinces[provinceID];
 		}
 
-		void checkRealTime();
+		void conditionallyAdvanceSimulation();
 	};
 
 	Simulation* Simulation::_simulation = nullptr;
