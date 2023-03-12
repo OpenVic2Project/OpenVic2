@@ -35,3 +35,6 @@ For detailed instructions, view the Contributor Quickstart Guide [here](docs/con
 2. Build with `scons dev_build=yes`.
 3. [Setup your IDE](https://godotengine.org/qa/108346/how-can-i-debug-runtime-errors-of-native-library-in-godot) so your Command/Host/Launching App is your Godot 4 binary and the Working Directory is the `game` directory.
 4. Start the debugger.
+
+## Generate Visual Studio Files
+Run `scons vsproj=yes` and a project and solution file should be generated for you.
